@@ -40,13 +40,14 @@ jobs:
           docker push tritran14/netflix:latest  
         env:
           DOCKER_CLI_ACI: 1
- deploy:    
-    needs: build-analyze-scan  
-    runs-on: [ip-10-192-11-79]  #use your label here
-    steps:
-        - name: Pull the docker image
-          run: docker pull tritran14/netflix:latest
-        - name: Trivy image scan
-          run: trivy image tritran14/netflix:latest
-        - name: Run the container netflix
-          run: docker run -d --name netflix -p 80:80 tritran14/netflix:latest
+          
+  deploy:    
+      needs: build-analyze-scan  
+      runs-on: [ip-10-192-11-79]  #use your label here
+      steps:
+          - name: Pull the docker image
+            run: docker pull tritran14/netflix:latest
+          - name: Trivy image scan
+            run: trivy image tritran14/netflix:latest
+          - name: Run the container netflix
+            run: docker run -d --name netflix -p 80:80 tritran14/netflix:latest
